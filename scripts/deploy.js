@@ -1,9 +1,11 @@
 const { ContractFactory } = require("ethers");
 const { linkLibraries } = require("../util/linkLibraries");
 const { asciiStringToBytes32 } = require("../util/asciiStringToBytes32");
+const fs = require("fs");
 
 const WETH9 = require("../util/WETH9.json");
 
+// put address of the owner that will be on the 2 factories
 let newOwner = "0x11bd2009bC0c230DDc51d3493CFe3Fa484f6240d";
 const nativeCurrencyLabelBytes = asciiStringToBytes32("ETH");
 const chain = "sepolia";
@@ -237,6 +239,22 @@ async function main() {
     positionManager.target,
     weth9.target
   );
+
+  let data = JSON.stringify({
+    weth: weth9.target,
+    factoryV3: factoryV3.target,
+    factoryV2: factoryV2.target,
+    multicall: multicall.target,
+    tickLens: tickLens.target,
+    nftDescriptorLibrary: nftDescriptorLibrary.target,
+    positionDescriptor: positionDescriptor.target,
+    positionManager: positionManager.target,
+    migrator: migrator.target,
+    staker: staker.target,
+    quoterV2: quoterV2.target,
+    router: router.target,
+  });
+  fs.writeFileSync("constant.json", data);
 }
 
 main().catch((error) => {
