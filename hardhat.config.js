@@ -11,6 +11,10 @@ module.exports = {
       url: `${process.env.RPC}`,
       accounts: [`${process.env.PRIVATE_KEY}`],
     },
+    mainnet: {
+      url: `${process.env.RPC_MAINNET}`,
+      accounts: [`${process.env.PRIVATE_KEY}`],
+    },
   },
 
   etherscan: {
